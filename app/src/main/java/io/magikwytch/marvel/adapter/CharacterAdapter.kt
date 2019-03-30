@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import io.magikwytch.marvel.R
 import io.magikwytch.marvel.network.dto.character.MarvelCharacter
 import kotlinx.android.synthetic.main.character_row.view.*
@@ -27,6 +28,10 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val character = characters[position]
         holder.characterTitle.text = character.name
+        val urlToCharacterThumbnail: String = character.thumbnail.path + "." + character.thumbnail.extension
+        Picasso.get()
+            .load(urlToCharacterThumbnail)
+            .into(holder.characterThumbnail)
 
 
     }
@@ -34,6 +39,6 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
 
 class CharacterViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val characterTitle: TextView = view.textView_character_title
-    val characterImage: ImageView = view.imageView_characterImage
+    val characterThumbnail: ImageView = view.imageView_character_thumbnail
 
 }

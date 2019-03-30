@@ -61,7 +61,6 @@ class CharacterFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         return view
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
