@@ -21,6 +21,6 @@
     <string name="hello_character_fragment">Hello character fragment</string>
     <string name="hello_comic_fragment">Hello comic fragment</string>
 
-    <string name="imageView_character_thumbnail">Character name</string>
-    <string name="textView_character_title">Character image</string>
-    </resources>
+    <string name="imageView_character_thumbnail">Character thumbnail</string>
+    <string name="textView_character_title">Character name</string>
+</resources>

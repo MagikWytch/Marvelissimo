@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,6 +61,22 @@ class CharacterFragment : Fragment() {
                 adapter.characters.addAll(wrapper.data.results)
                 adapter.notifyDataSetChanged()
             }
+
+        view.recyclerView_character.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    MarvelApi.getService().getAllCharacters(adapter.characters.size)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe { wrapper ->
+                            adapter.characters.addAll(wrapper.data.results)
+                            adapter.notifyDataSetChanged()
+                        }
+                }
+            }
+        })
         return view
     }
 
