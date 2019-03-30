@@ -13,6 +13,7 @@ import android.view.MenuItem
 import io.magikwytch.marvel.fragment.CharacterFragment
 import io.magikwytch.marvel.fragment.ComicFragment
 import io.magikwytch.marvel.network.MarvelApi
+import io.magikwytch.marvel.network.dto.character.CharacterDataWrapper
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             MarvelApi.getService().getAllCharacters()
                 .subscribeOn(Schedulers.computation())
                 .subscribe { wrapper -> println(wrapper) }
+            println("TESTING TESTING TESTING")
+
         }
 
         val toggle = ActionBarDrawerToggle(

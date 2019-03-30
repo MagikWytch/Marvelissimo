@@ -10,30 +10,31 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 import java.util.*
 
 interface MarvelApi {
 
     @GET("characters")
-    fun getAllCharacters(): Single<CharacterDataWrapper>
+    fun getAllCharacters(@Query("offset") offset: Int = 0): Single<CharacterDataWrapper>
 
     @GET("characters/{characterId}")
-    fun getCharacter(): Single<CharacterDataWrapper>
+    fun getCharacterById(): Single<CharacterDataWrapper>
 
     companion object {
+
         fun getService(): MarvelApi {
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY
+
+            val publicApiKey: String = BuildConfig.PublicApiKey
+            val privateApiKey: String = BuildConfig.PrivateApiKey
 
             val httpClient = OkHttpClient.Builder()
             httpClient.addInterceptor(logging)
             httpClient.addInterceptor { chain ->
                 val original = chain.request()
                 val originalHttpUrl = original.url()
-
-                val publicApiKey: String = BuildConfig.PublicApiKey
-                val privateApiKey: String = BuildConfig.PrivateApiKey
-
                 val ts = (Calendar.getInstance(TimeZone.getTimeZone("UTC")).timeInMillis / 1000L).toString()
                 val url = originalHttpUrl.newBuilder()
                     .addQueryParameter("apikey", publicApiKey)

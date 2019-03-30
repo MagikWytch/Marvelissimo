@@ -1,14 +1,21 @@
 package io.magikwytch.marvel.fragment
 
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import io.magikwytch.marvel.R
+import io.magikwytch.marvel.adapter.CharacterAdapter
+import io.magikwytch.marvel.network.MarvelApi
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_character.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,8 +49,19 @@ class CharacterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_character, container, false)
+        val view = inflater.inflate(R.layout.fragment_character, container, false)
+        view.recyclerView_character.layoutManager = LinearLayoutManager(activity)
+        val adapter = CharacterAdapter()
+        view.recyclerView_character.adapter = adapter
+        MarvelApi.getService().getAllCharacters(0)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { wrapper ->
+                adapter.characters.addAll(wrapper.data.results)
+                adapter.notifyDataSetChanged()
+            }
+        return view
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
