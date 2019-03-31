@@ -64,7 +64,8 @@ class CharacterFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
 
-        view.recyclerView_character.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        val dumbScroll = object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
@@ -78,7 +79,37 @@ class CharacterFragment : Fragment() {
                         }
                 }
             }
-        })
+        }
+        view.recyclerView_character.addOnScrollListener(dumbScroll)
+
+        view.button_character_search.setOnClickListener {
+            view.recyclerView_character.removeOnScrollListener(dumbScroll)
+            val nameStartsWith = view.editText_character_name.text.toString()
+
+            MarvelApi.getService().getCharacterByNameStartsWith(nameStartsWith)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { wrapper ->
+                    adapter.characters.clear()
+                    adapter.characters.addAll(wrapper.data.results)
+                    adapter.notifyDataSetChanged()
+                }
+        }
+
+        view.button_character_clear.setOnClickListener {
+            view.recyclerView_character.addOnScrollListener(dumbScroll)
+            view.editText_character_name.text.clear()
+
+            MarvelApi.getService().getAllCharacters(0)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { wrapper ->
+                    adapter.characters.clear()
+                    adapter.characters.addAll(wrapper.data.results)
+                    adapter.notifyDataSetChanged()
+                }
+
+        }
         return view
     }
 

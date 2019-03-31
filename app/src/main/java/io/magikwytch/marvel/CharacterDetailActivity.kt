@@ -41,7 +41,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 val characterComics: TextView = findViewById(R.id.textView_character_detail_comicList)
                 var listOfComics = ""
                 for (item in character.comics.items) {
-                    listOfComics += item.name + "\n"
+                    listOfComics += item.name + ", "
                     characterComics.text = listOfComics
                 }
 

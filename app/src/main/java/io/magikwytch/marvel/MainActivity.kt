@@ -30,16 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
 
-            MarvelApi.getService().getAllCharacters()
-                .subscribeOn(Schedulers.computation())
-                .subscribe { wrapper -> println(wrapper) }
-            println("TESTING TESTING TESTING")
-
-        }
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -51,6 +42,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         characterFragment = CharacterFragment.newInstance()
         comicFragment = ComicFragment.newInstance()
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, characterFragment)
+            .addToBackStack(characterFragment.toString())
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
     }
 
     override fun onBackPressed() {

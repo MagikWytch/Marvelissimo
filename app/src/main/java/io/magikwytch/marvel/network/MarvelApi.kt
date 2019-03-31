@@ -22,6 +22,15 @@ interface MarvelApi {
     @GET("characters/{characterId}")
     fun getCharacterById(@Path("characterId") characterId: Int): Single<CharacterDataWrapper>
 
+    @GET("characters")
+    fun getCharacterByNameStartsWith(@Query("nameStartsWith") nameStartsWith: String): Single<CharacterDataWrapper>
+
+    @GET("comics")
+    fun getAllComics(@Query("offset") offset: Int = 0): Single<CharacterDataWrapper>
+
+    @GET("comics/{comicId}")
+    fun getComicById(@Path("characterId") characterId: Int): Single<CharacterDataWrapper>
+
     companion object {
 
         fun getService(): MarvelApi {

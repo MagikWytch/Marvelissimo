@@ -28,4 +28,7 @@
     <string name="imageView_character_detail_thumbnail">Thumbnail</string>
     <string name="textView_character_detail_comics">List of comics:</string>
     <string name="textView_character_detail_comic_list">Sorry! List is empty.</string>
+
+    <string name="editText_character_name">E.g. Hulk</string>
+    <string name="button_name_search">Search</string>
     </resources>
