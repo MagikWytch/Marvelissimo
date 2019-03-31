@@ -4,37 +4,27 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import io.magikwytch.marvel.R
+import io.magikwytch.marvel.adapter.ComicAdapter
+import io.magikwytch.marvel.network.MarvelApi
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_comic.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [ComicFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [ComicFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class ComicFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var linearLayoutManager: LinearLayoutManager
+
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -42,8 +32,66 @@ class ComicFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comic, container, false)
+        val view = inflater.inflate(R.layout.fragment_comic, container, false)
+        linearLayoutManager = LinearLayoutManager(activity)
+        view.recyclerView_comic.layoutManager = linearLayoutManager
+        val adapter = ComicAdapter()
+        view.recyclerView_comic.adapter = adapter
+        MarvelApi.getService().getAllComics(0)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { wrapper ->
+                adapter.comics.addAll(wrapper.data.results)
+                adapter.notifyDataSetChanged()
+            }
+
+        val dumbScroll = object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    MarvelApi.getService().getAllComics(adapter.comics.size)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe { wrapper ->
+                            adapter.comics.addAll(wrapper.data.results)
+                            adapter.notifyDataSetChanged()
+                        }
+                }
+            }
+        }
+
+        view.recyclerView_comic.addOnScrollListener(dumbScroll)
+
+        view.button_comic_search.setOnClickListener {
+            view.recyclerView_comic.removeOnScrollListener(dumbScroll)
+            val titleStartsWith = view.editText_comic_name.text.toString()
+
+            MarvelApi.getService().getComicByTitleStartsWith(titleStartsWith)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { wrapper ->
+                    adapter.comics.clear()
+                    adapter.comics.addAll(wrapper.data.results)
+                    adapter.notifyDataSetChanged()
+                }
+        }
+
+        view.button_comic_clear.setOnClickListener {
+            view.recyclerView_comic.addOnScrollListener(dumbScroll)
+            view.editText_comic_name.text.clear()
+
+            MarvelApi.getService().getAllComics(0)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { wrapper ->
+                    adapter.comics.clear()
+                    adapter.comics.addAll(wrapper.data.results)
+                    adapter.notifyDataSetChanged()
+                }
+
+        }
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -65,32 +113,12 @@ class ComicFragment : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ComicFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
             ComicFragment().apply {

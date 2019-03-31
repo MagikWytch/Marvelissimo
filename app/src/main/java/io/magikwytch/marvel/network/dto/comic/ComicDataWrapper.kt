@@ -1,4 +1,4 @@
 package io.magikwytch.marvel.network.dto.comic
 
-class ComicDataWrapper {
+data class ComicDataWrapper(val data: ComicDataContainer) {
 }

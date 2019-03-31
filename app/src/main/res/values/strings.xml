@@ -31,4 +31,15 @@
 
     <string name="editText_character_name">E.g. Hulk</string>
     <string name="button_name_search">Search</string>
+
+    <string name="editText_comic_name">Enter comic</string>
+    <string name="imageView_comic_thumbnail">Comic thumbnail</string>
+    <string name="button_clear">Clear</string>
+    <string name="textView_comic_title">Comic name</string>
+
+    <string name="textView_comic_detail_title">Title</string>
+    <string name="textView_comic_detail_description">Sorry! No description available.</string>
+    <string name="imageView_comic_detail_thumbnail">Thumbnail</string>
+    <string name="textView_comic_detail_characters">List of characters:</string>
+    <string name="textView_comic_detail_character_list">Sorry! List is empty.</string>
     </resources>

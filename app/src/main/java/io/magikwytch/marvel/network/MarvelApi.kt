@@ -3,6 +3,7 @@ package io.magikwytch.marvel.network
 import com.google.gson.GsonBuilder
 import io.magikwytch.marvel.BuildConfig
 import io.magikwytch.marvel.network.dto.character.CharacterDataWrapper
+import io.magikwytch.marvel.network.dto.comic.ComicDataWrapper
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,10 +27,13 @@ interface MarvelApi {
     fun getCharacterByNameStartsWith(@Query("nameStartsWith") nameStartsWith: String): Single<CharacterDataWrapper>
 
     @GET("comics")
-    fun getAllComics(@Query("offset") offset: Int = 0): Single<CharacterDataWrapper>
+    fun getAllComics(@Query("offset") offset: Int = 0): Single<ComicDataWrapper>
 
     @GET("comics/{comicId}")
-    fun getComicById(@Path("characterId") characterId: Int): Single<CharacterDataWrapper>
+    fun getComicById(@Path("comicId") comicId: Int): Single<ComicDataWrapper>
+
+    @GET("comics")
+    fun getComicByTitleStartsWith(@Query("titleStartsWith") nameStartsWith: String): Single<ComicDataWrapper>
 
     companion object {
 

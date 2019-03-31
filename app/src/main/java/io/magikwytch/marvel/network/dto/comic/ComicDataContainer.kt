@@ -1,4 +1,3 @@
 package io.magikwytch.marvel.network.dto.comic
 
-class ComicDataContainer {
-}
+data class ComicDataContainer(val results: List<Comic>)

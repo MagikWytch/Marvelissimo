@@ -1,7 +1,6 @@
 package io.magikwytch.marvel.adapter
 
 import android.content.Intent
-import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,6 @@ import com.squareup.picasso.Picasso
 import io.magikwytch.marvel.CharacterDetailActivity
 import io.magikwytch.marvel.R
 import io.magikwytch.marvel.network.dto.character.MarvelCharacter
-import io.magikwytch.marvel.network.dto.comic.ComicList
-import io.magikwytch.marvel.network.dto.comic.ComicSummary
 import kotlinx.android.synthetic.main.character_row.view.*
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {

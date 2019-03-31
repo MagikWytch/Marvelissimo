@@ -5,10 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
-import io.magikwytch.marvel.adapter.CharacterViewHolder
 import io.magikwytch.marvel.network.MarvelApi
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.internal.util.BackpressureHelper.add
 import io.reactivex.schedulers.Schedulers
 
 class CharacterDetailActivity : AppCompatActivity() {
@@ -18,7 +16,6 @@ class CharacterDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_character)
 
         val characterId = intent.getIntExtra("characterId", -1)
-
 
         MarvelApi.getService().getCharacterById(characterId)
             .subscribeOn(Schedulers.io())
@@ -32,7 +29,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                     .load(urlToCharacterThumbnail)
                     .into(thumbnail)
 
-                val title: TextView = findViewById(R.id.textView_character_detail_name)
+                val title: TextView = findViewById(R.id.textView_character_detail_title)
                 title.text = character.name
 
                 val description: TextView = findViewById(R.id.textView_character_detail_description)
@@ -44,11 +41,6 @@ class CharacterDetailActivity : AppCompatActivity() {
                     listOfComics += item.name + ", "
                     characterComics.text = listOfComics
                 }
-
             }
-
-
     }
-
-
 }
