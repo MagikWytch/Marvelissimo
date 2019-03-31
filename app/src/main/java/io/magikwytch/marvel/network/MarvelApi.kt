@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.*
 
@@ -19,7 +20,7 @@ interface MarvelApi {
     fun getAllCharacters(@Query("offset") offset: Int = 0): Single<CharacterDataWrapper>
 
     @GET("characters/{characterId}")
-    fun getCharacterById(): Single<CharacterDataWrapper>
+    fun getCharacterById(@Path("characterId") characterId: Int): Single<CharacterDataWrapper>
 
     companion object {
 

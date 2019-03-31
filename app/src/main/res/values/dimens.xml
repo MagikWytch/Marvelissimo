@@ -10,4 +10,7 @@
     <dimen name="thumbnail_size">120dp</dimen>
 
     <dimen name="character_row_name_size">20sp</dimen>
+    <dimen name="character_detail_name_size">28sp</dimen>
+    <dimen name="character_detail_comic_title_size">24sp</dimen>
+    <dimen name="character_detail_text_size">18sp</dimen>
 </resources>

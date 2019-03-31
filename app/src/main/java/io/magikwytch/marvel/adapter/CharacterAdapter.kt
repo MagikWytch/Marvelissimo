@@ -1,6 +1,7 @@
 package io.magikwytch.marvel.adapter
 
 import android.content.Intent
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.squareup.picasso.Picasso
 import io.magikwytch.marvel.CharacterDetailActivity
 import io.magikwytch.marvel.R
 import io.magikwytch.marvel.network.dto.character.MarvelCharacter
+import io.magikwytch.marvel.network.dto.comic.ComicList
+import io.magikwytch.marvel.network.dto.comic.ComicSummary
 import kotlinx.android.synthetic.main.character_row.view.*
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
@@ -30,22 +33,25 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val character = characters[position]
         holder.characterTitle.text = character.name
+
         val urlToCharacterThumbnail: String = character.thumbnail.path + "." + character.thumbnail.extension
         Picasso.get()
             .load(urlToCharacterThumbnail)
             .into(holder.characterThumbnail)
 
-
+        holder.character = character
     }
 }
 
-class CharacterViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class CharacterViewHolder(val view: View, var character: MarvelCharacter? = null) : RecyclerView.ViewHolder(view) {
     val characterTitle: TextView = view.textView_character_title
     val characterThumbnail: ImageView = view.imageView_character_thumbnail
+    val context = view.context
 
-    init{
-        view.setOnClickListener{
+    init {
+        view.setOnClickListener {
             val intent = Intent(view.context, CharacterDetailActivity::class.java)
+            intent.putExtra("characterId", character?.id)
             view.context.startActivity(intent)
         }
     }

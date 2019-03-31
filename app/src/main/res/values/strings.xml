@@ -20,7 +20,12 @@
     <string name="fragment_title_comic">Comic</string>
     <string name="hello_character_fragment">Hello character fragment</string>
     <string name="hello_comic_fragment">Hello comic fragment</string>
-
     <string name="imageView_character_thumbnail">Character thumbnail</string>
     <string name="textView_character_title">Character name</string>
+
+    <string name="textView_character_detail_title">Name</string>
+    <string name="textView_character_detail_description">Sorry! No description available.</string>
+    <string name="imageView_character_detail_thumbnail">Thumbnail</string>
+    <string name="textView_character_detail_comics">List of comics:</string>
+    <string name="textView_character_detail_comic_list">Sorry! List is empty.</string>
     </resources>
