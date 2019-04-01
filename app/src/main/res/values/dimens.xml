@@ -8,6 +8,7 @@
     <dimen name="line_divider">0.5dp</dimen>
 
     <dimen name="thumbnail_size">120dp</dimen>
+    <dimen name="thumbnail_detail_size">190dp</dimen>
 
     <dimen name="character_row_name_size">20sp</dimen>
     <dimen name="character_detail_name_size">28sp</dimen>
