@@ -1,12 +1,6 @@
 <resources>
-    <!--    <string name="app_name">Marvel</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>-->
 
+    <!-- General. -->
     <string name="app_name">Marvelissimo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -14,32 +8,31 @@
     <string name="nav_header_subtitle">Your marvel portal online</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
-
     <string name="fragment_title_character">Character</string>
     <string name="fragment_title_comic">Comic</string>
     <string name="hello_character_fragment">Hello character fragment</string>
     <string name="hello_comic_fragment">Hello comic fragment</string>
+    <string name="button_name_search">Search</string>
+    <string name="button_clear">Clear</string>
+
+    <!-- Character specific. -->
     <string name="imageView_character_thumbnail">Character thumbnail</string>
     <string name="textView_character_title">Character name</string>
-
     <string name="textView_character_detail_title">Name</string>
     <string name="textView_character_detail_description">[ Missing ]</string>
     <string name="imageView_character_detail_thumbnail">Thumbnail</string>
     <string name="textView_character_detail_comics">List of comics:</string>
     <string name="textView_character_detail_comic_list">[ Missing ]</string>
-
     <string name="editText_character_name">E.g. Hulk</string>
-    <string name="button_name_search">Search</string>
 
-    <string name="editText_comic_name">Enter comic</string>
+    <!-- Comic specific. -->
     <string name="imageView_comic_thumbnail">Comic thumbnail</string>
-    <string name="button_clear">Clear</string>
     <string name="textView_comic_title">E.g. Hulk</string>
-
     <string name="textView_comic_detail_title">Title</string>
     <string name="textView_comic_detail_description">[ Missing ]</string>
     <string name="imageView_comic_detail_thumbnail">Thumbnail</string>
     <string name="textView_comic_detail_characters">List of characters:</string>
     <string name="textView_comic_detail_character_list">[ Missing ]</string>
-    </resources>
+    <string name="editText_comic_name">Enter comic</string>
+
+</resources>

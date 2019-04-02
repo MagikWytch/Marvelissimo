@@ -9,12 +9,15 @@
 
     <dimen name="thumbnail_size">120dp</dimen>
     <dimen name="thumbnail_detail_size">190dp</dimen>
+    <dimen name="button_favorite">60dp</dimen>
 
+    <!-- Character specific settings. -->
     <dimen name="character_row_name_size">20sp</dimen>
     <dimen name="character_detail_name_size">28sp</dimen>
     <dimen name="character_detail_comic_title_size">24sp</dimen>
     <dimen name="character_detail_text_size">18sp</dimen>
 
+    <!-- Comic specific settings. -->
     <dimen name="comic_row_name_size">20sp</dimen>
     <dimen name="comic_detail_name_size">28sp</dimen>
     <dimen name="comic_detail_character_title_size">24sp</dimen>

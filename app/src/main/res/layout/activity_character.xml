@@ -15,7 +15,7 @@
         <ImageView
                 android:layout_width="@dimen/thumbnail_detail_size"
                 android:layout_height="@dimen/thumbnail_detail_size" app:srcCompat="@mipmap/ic_launcher"
-                android:id="@+id/imageView_character_detail_thumbnail" android:layout_marginTop="8dp"
+                android:id="@+id/imageView_character_detail_thumbnail" android:layout_marginTop="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                 android:contentDescription="@string/imageView_character_detail_thumbnail"
@@ -27,50 +27,42 @@
                 android:id="@+id/textView_character_detail_title" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_character_detail_thumbnail"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" android:textSize="@dimen/character_detail_name_size"/>
+                android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp" android:textSize="@dimen/character_detail_name_size"/>
         <TextView
                 android:text="@string/textView_character_detail_description"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView_character_detail_description"
                 android:textSize="@dimen/character_detail_text_size"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView_character_detail_title"
-                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
+                android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"/>
         <TextView
                 android:text="@string/textView_character_detail_comic_list"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView_character_detail_comicList"
                 android:textSize="@dimen/character_detail_text_size"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView_character_detail_comics"
-                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
-        <TextView
-                android:text="@string/textView_character_detail_comics"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView_character_detail_comics"
-                android:textSize="@dimen/character_detail_comic_title_size"
-                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView_character_detail_description"
-                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
-        <Button
-                android:text="Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_set_favourite_character"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"/>
+        <ToggleButton
+                android:id="@+id/button_favorite"
+                android:layout_width="@dimen/button_favorite"
+                android:layout_height="@dimen/button_favorite"
+                android:background="@drawable/button_favorite"
+                android:checked="false"
+                android:text=""
+                android:textOff=""
+                android:textOn=""
                 app:layout_constraintStart_toEndOf="@+id/imageView_character_detail_thumbnail"
-                android:layout_marginStart="8dp"
-                app:layout_constraintHorizontal_bias="0.578"
-                android:layout_marginTop="108dp" app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_marginStart="8dp" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

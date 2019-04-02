@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        characterFragment = CharacterFragment.newInstance()
+        comicFragment = ComicFragment.newInstance()
 
 
         val toggle = ActionBarDrawerToggle(
@@ -39,9 +41,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-
-        characterFragment = CharacterFragment.newInstance()
-        comicFragment = ComicFragment.newInstance()
 
         supportFragmentManager
             .beginTransaction()
@@ -76,7 +75,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_character -> {
                 supportFragmentManager
