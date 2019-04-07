@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import io.magikwytch.marvel.fragment.CharacterFragment
 import io.magikwytch.marvel.fragment.ComicFragment
+import io.magikwytch.marvel.fragment.FavoriteFragment
 import io.magikwytch.marvel.network.MarvelApi
 import io.magikwytch.marvel.network.dto.character.CharacterDataWrapper
 import io.reactivex.schedulers.Schedulers
@@ -20,10 +21,12 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     CharacterFragment.OnFragmentInteractionListener,
-    ComicFragment.OnFragmentInteractionListener {
+    ComicFragment.OnFragmentInteractionListener,
+    FavoriteFragment.OnFragmentInteractionListener {
 
     lateinit var characterFragment: CharacterFragment
     lateinit var comicFragment: ComicFragment
+    lateinit var favoriteFragment: FavoriteFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         characterFragment = CharacterFragment.newInstance()
         comicFragment = ComicFragment.newInstance()
+        favoriteFragment = FavoriteFragment.newInstance()
 
 
         val toggle = ActionBarDrawerToggle(
@@ -89,6 +93,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .beginTransaction()
                     .replace(R.id.container, comicFragment)
                     .addToBackStack(comicFragment.toString())
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
+            }
+            R.id.nav_favorite -> {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.container, favoriteFragment)
+                    .addToBackStack(favoriteFragment.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
             }

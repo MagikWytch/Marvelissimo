@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import io.magikwytch.marvel.R
 import io.magikwytch.marvel.adapter.ComicAdapter
@@ -45,7 +46,7 @@ class ComicFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
 
-        val dumbScroll = object: RecyclerView.OnScrollListener() {
+        val dumbScroll = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
@@ -64,17 +65,21 @@ class ComicFragment : Fragment() {
         view.recyclerView_comic.addOnScrollListener(dumbScroll)
 
         view.button_comic_search.setOnClickListener {
-            view.recyclerView_comic.removeOnScrollListener(dumbScroll)
-            val titleStartsWith = view.editText_comic_name.text.toString()
+            if (!view.editText_comic_name.text.isEmpty()) {
+                view.recyclerView_comic.removeOnScrollListener(dumbScroll)
+                val titleStartsWith = view.editText_comic_name.text.toString()
 
-            MarvelApi.getService().getComicByTitleStartsWith(titleStartsWith)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { wrapper ->
-                    adapter.comics.clear()
-                    adapter.comics.addAll(wrapper.data.results)
-                    adapter.notifyDataSetChanged()
-                }
+                MarvelApi.getService().getComicByTitleStartsWith(titleStartsWith)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { wrapper ->
+                        adapter.comics.clear()
+                        adapter.comics.addAll(wrapper.data.results)
+                        adapter.notifyDataSetChanged()
+                    }
+            }else {
+                Toast.makeText(this.context, "Please enter a title", Toast.LENGTH_SHORT).show()
+            }
         }
 
         view.button_comic_clear.setOnClickListener {

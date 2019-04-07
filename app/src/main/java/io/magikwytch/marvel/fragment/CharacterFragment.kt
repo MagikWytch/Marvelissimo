@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import io.magikwytch.marvel.R
 import io.magikwytch.marvel.adapter.CharacterAdapter
@@ -45,7 +46,7 @@ class CharacterFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
 
-        val dumbScroll = object: RecyclerView.OnScrollListener() {
+        val dumbScroll = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
@@ -64,17 +65,22 @@ class CharacterFragment : Fragment() {
         view.recyclerView_character.addOnScrollListener(dumbScroll)
 
         view.button_character_search.setOnClickListener {
-            view.recyclerView_character.removeOnScrollListener(dumbScroll)
-            val nameStartsWith = view.editText_character_name.text.toString()
+            if (!view.editText_character_name.text.isEmpty()) {
 
-            MarvelApi.getService().getCharacterByNameStartsWith(nameStartsWith)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { wrapper ->
-                    adapter.characters.clear()
-                    adapter.characters.addAll(wrapper.data.results)
-                    adapter.notifyDataSetChanged()
-                }
+                view.recyclerView_character.removeOnScrollListener(dumbScroll)
+                val nameStartsWith = view.editText_character_name.text.toString()
+
+                MarvelApi.getService().getCharacterByNameStartsWith(nameStartsWith)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { wrapper ->
+                        adapter.characters.clear()
+                        adapter.characters.addAll(wrapper.data.results)
+                        adapter.notifyDataSetChanged()
+                    }
+            } else {
+                Toast.makeText(this.context, "Please enter a name", Toast.LENGTH_SHORT).show()
+            }
         }
 
         view.button_character_clear.setOnClickListener {
@@ -91,6 +97,7 @@ class CharacterFragment : Fragment() {
                 }
 
         }
+
         return view
     }
 

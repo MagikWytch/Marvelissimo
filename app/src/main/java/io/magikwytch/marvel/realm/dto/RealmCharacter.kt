@@ -10,5 +10,6 @@ open class RealmCharacter : RealmObject() {
     @PrimaryKey
     var id: Int = 0
     var name: String? = null
-    var thumbnail: String? = null
+    var path: String? = null
+    var extension: String? = null
 }

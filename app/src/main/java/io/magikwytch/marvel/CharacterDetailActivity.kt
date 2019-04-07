@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import android.widget.ToggleButton
 import com.squareup.picasso.Picasso
 import io.magikwytch.marvel.network.MarvelApi
@@ -51,7 +52,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                     characterComics.text = listOfComics
                 }
 
-                var isMarkedAsFavorite: Boolean = checkIfFavorite(character)
+                var isMarkedAsFavorite: Boolean = checkIfFavorite()
                 if (isMarkedAsFavorite) {
                     favoriteButton.isChecked = true
                 }
@@ -63,7 +64,9 @@ class CharacterDetailActivity : AppCompatActivity() {
                 realm.beginTransaction()
                 val realmCharacter: RealmCharacter = realm.createObject(RealmCharacter::class.java, this.character.id)
                 realmCharacter.name = this.character.name
-                realmCharacter.thumbnail = this.character.thumbnail.path + "." + this.character.thumbnail.extension
+                realmCharacter.path = this.character.thumbnail.path
+                realmCharacter.extension = this.character.thumbnail.extension
+                realm.insertOrUpdate(realmCharacter)
                 realm.commitTransaction()
             } else {
                 realm.executeTransactionAsync {
@@ -76,7 +79,7 @@ class CharacterDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkIfFavorite(character: MarvelCharacter): Boolean {
+    private fun checkIfFavorite(): Boolean {
         realm.where(RealmCharacter::class.java)
             .equalTo("id", this.character.id)
             .findFirst() ?: return false

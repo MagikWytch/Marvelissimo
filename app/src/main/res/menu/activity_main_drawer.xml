@@ -12,6 +12,11 @@
                 android:id="@+id/nav_comic"
                 android:icon="@drawable/ic_comic"
                 android:title="@string/fragment_title_comic"/>
+
+        <item
+                android:id="@+id/nav_favorite"
+                android:icon="@drawable/ic_favorite_full"
+                android:title="@string/fragment_title_favorite"/>
     </group>
 
 
